@@ -8,13 +8,14 @@ class Crab:
         self.cursor = self.conn.cursor()
 
 
-    @classmethod
+    @classmethod 
     def create_table(cls, database_name: str, table_name: str):
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
 
+        #first check
         cursor.execute(f"""
-            SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';""")
+            SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';""") 
         result = cursor.fetchone()
 
         if result:
