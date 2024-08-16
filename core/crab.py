@@ -56,6 +56,11 @@ class Crab:
         v = 'VARCHAR(255)'
         return v
     
+    @classmethod
+    def integer(cls):
+        i = 'INTEGER'
+        return i
+    
 
 
 class Student(Crab):

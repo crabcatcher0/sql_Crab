@@ -1,6 +1,6 @@
 # Custom ORM for SQLite
 
-Custom Object-Relational Mapping (ORM) system for SQLite, implemented in Python. Provides basic functionality for creating tables and adding columns to a database using a class-based approach.
+Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in Python. Provides basic functionality for creating tables and adding columns to a database using a class-based approach.
 
 ## Features
 
