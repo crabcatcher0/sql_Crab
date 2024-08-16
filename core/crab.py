@@ -9,27 +9,30 @@ class Crab:
 
 
     @classmethod 
-    def create_table(cls, database_name: str, table_name: str):
+    def create_table(cls, database_name: str, table_name: str, columns: dict):
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
 
-        #first check
+        # check if the table already exists
         cursor.execute(f"""
-            SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';""") 
+            SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';
+        """)
         result = cursor.fetchone()
 
         if result:
             print(f"Table '{table_name}' already exists.")
         else:
+            # create table with columns
+            columns_definition = ", ".join([f"{col} {dtype}" for col, dtype in columns.items()])
             cursor.execute(f"""
-            CREATE TABLE {table_name} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT
+                CREATE TABLE {table_name} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                {columns_definition}
             )
-        """)
+            """)
             print(f"Table '{table_name}' created.")
         conn.commit()
         conn.close()
-
 
 
     @classmethod
@@ -52,6 +55,21 @@ class Crab:
 
 
     @classmethod
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.table_name = cls.__name__.lower() 
+
+        cls.create_table(
+            database_name='test.db',
+            table_name=cls.table_name,
+            columns=cls._columns
+        )
+
+
+
+class DataTypes:
+
+    @classmethod
     def varchar(cls):
         v = 'VARCHAR(255)'
         return v
@@ -63,12 +81,3 @@ class Crab:
     
 
 
-class Student(Crab):
-    database = 'test.db'
-    table_name = 'students'
-    table = Crab.create_table(database, 'students')
-    name = Crab.add_column(database, table_name, 'name', data_type=Crab.varchar())
-    subject = Crab.add_column(database, table_name, 'subject', data_type=Crab.varchar())
-    age = Crab.add_column(database, table_name, 'age', Crab.varchar())
-
-    
