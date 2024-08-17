@@ -11,7 +11,7 @@ from crabmodel import CrabModel
 class Student(CrabModel):
     _column = {
         'name': DataTypes.varchar(20),
-        'email': DataTypes.varchar(),
+        'email': DataTypes.emailfield(unique=True),
         'age': DataTypes.integer(),
     }
     role = CrabModel.add_column(   ### add 'role' as new column to student table

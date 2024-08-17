@@ -6,5 +6,5 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 
 - Create tables with an auto-incrementing primary key.
 - Classes mapped to the table name.
-- Define columns with data types like `VARCHAR` and `INTEGER`.
+- Define columns with data types like `VARCHAR`, `INTEGER`, `BOOLEAN` and `EMAILFIELD`.
 

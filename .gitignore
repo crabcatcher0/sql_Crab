@@ -3,5 +3,6 @@ env/
 env
 test.db
 rough.py
-
 __pycache__/
+*.py[cod]
+*$py.class

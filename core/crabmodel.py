@@ -4,7 +4,6 @@ from settings import DATABASE_NAME
 
 class CrabModel:
 
-
     @classmethod
     def create_table(cls, table_name: str, column: dict):
         database_name = DATABASE_NAME
