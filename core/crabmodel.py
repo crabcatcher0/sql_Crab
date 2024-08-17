@@ -35,6 +35,7 @@ class CrabModel:
         conn.commit()
         conn.close()
 
+
     @classmethod
     def add_column(cls, table_name: str, column_name: str, data_type: str):
         conn = sqlite3.connect(DATABASE_NAME)

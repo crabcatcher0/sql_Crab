@@ -1,22 +1,15 @@
-from datetime import datetime
 
 class DataTypes:
     
     @staticmethod
     def varchar(max_length=255):
-        return f'VARCHAR({max_length})'
+        return f'VARCHAR({max_length}) NOT NULL'
 
     @staticmethod
     def integer():
-        return 'INTEGER'
+        return 'INTEGER NOT NULL'
 
     @staticmethod
     def boolean():
         return 'BOOLEAN'
     
-    @staticmethod
-    def emailfiel():
-        return
-    
-    
-

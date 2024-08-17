@@ -3,4 +3,5 @@ env/
 env
 test.db
 rough.py
-test.db-journal
+
+__pycache__/
