@@ -1,8 +1,13 @@
-from crab import Crab, DataTypes
+from crab import Crab
+from datatypes import DataTypes
 
 
-class Student(Crab):
-    _columns = {
+class Teacher(Crab):
+    columns = {
         'name': DataTypes.varchar(),
-        'age' : DataTypes.integer()
+        'age': DataTypes.integer(),
+        'email': DataTypes.varchar(),
+        'classes': DataTypes.varchar()
     }
+
+
