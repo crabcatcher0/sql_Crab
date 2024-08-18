@@ -21,4 +21,5 @@ class DataTypes:
         if unique:
             return 'VARCHAR(255) UNIQUE NOT NULL'
         else:
-            return 'VARCHAR(255) NOT NULL'
+            return 'VARCHAR(255) UNIQUE NOT NULL'
+        

@@ -5,15 +5,16 @@ from crabmodel import CrabModel
 """
     Create the class name as of table name,
     _column dict, where keys are column name and values are datatypes.
-
+    
 """
 
 class Student(CrabModel):
     _column = {
         'name': DataTypes.varchar(20),
-        'email': DataTypes.emailfield(unique=True),
+        'email': DataTypes.emailfield(),
         'age': DataTypes.integer(),
     }
+
     role = CrabModel.add_column(   ### add 'role' as new column to student table
         table_name = 'student', 
         column_name = 'role', 

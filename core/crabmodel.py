@@ -5,7 +5,7 @@ from settings import DATABASE_NAME
 class CrabModel:
 
     @classmethod
-    def create_table(cls, table_name: str, column: dict):
+    def table(cls, table_name: str, column: dict):
         database_name = DATABASE_NAME
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
@@ -19,12 +19,12 @@ class CrabModel:
         if result:
             print(f"Table '{table_name}' already exists. Skipping...")
         else:
-            cold_def = ", ".join([f"{col} {dtype}" for col, dtype in column.items()])
+            colmn_def = ", ".join([f"{col} {dtype}" for col, dtype in column.items()])
             try:
                 cursor.execute(f"""
                     CREATE TABLE {table_name} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    {cold_def}
+                    {colmn_def}
                     );
                 """)
                 print(f"Table '{table_name}' created.\nColumn: {', '.join(column.keys())} created.")
@@ -59,7 +59,9 @@ class CrabModel:
         super().__init_subclass__(**kwargs)
         cls.table_name = cls.__name__.lower()
 
-        cls.create_table(
+        cls.table(
             table_name = cls.table_name,
             column = cls._column
         )
+
+
