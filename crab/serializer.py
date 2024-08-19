@@ -1,5 +1,5 @@
-from .get_data import GetData
-
+from get_data import GetData
+import sqlite3
 """
 
 Database result it converted into list of dict   
@@ -22,7 +22,24 @@ class Serializer:
         return final_result
     
     
+    @staticmethod
+    def one_data(model: str, fields: tuple, pk: int):
+        data = GetData.get_one_or_404(model, fields, pk=pk)
+        result = dict(zip(fields, data))
+        return result
+        
+
+ss = Serializer.one_data('student', ('id', 'name', 'email', 'age'), 2)
+print(ss)
+        
+
+
+
     
+    
+    
+
+
 
 
 
