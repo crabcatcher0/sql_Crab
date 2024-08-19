@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from core.crabmodel import CrabModel
-from core.get_data import GetData
+from crab.crabmodel import CrabModel
+from crab.get_data import GetData
 from serializer import serializer
 from models import Student
 

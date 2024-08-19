@@ -8,12 +8,12 @@ from get_data import GetData
     
 """
 
-class Student(CrabModel):
-    _column = {
-        'name': DataTypes.varchar(20),
-        'email': DataTypes.emailfield(),
-        'age': DataTypes.integer(),
-    }
+# class Student(CrabModel):
+#     _column = {
+#         'name': DataTypes.varchar(20),
+#         'email': DataTypes.emailfield(),
+#         'age': DataTypes.integer(),
+#     }
 
 
 

@@ -1,6 +1,6 @@
 from add_data import Data
 
-"""  Example to add Data Dummy Data  """
+"""  Example to add Data  """
 
 
 class Student(Data):

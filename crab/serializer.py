@@ -1,6 +1,5 @@
 from .get_data import GetData
 
-
 """
 
 Database result it converted into list of dict   
