@@ -11,3 +11,4 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 - Table names are mapped to classes
 - Define columns with data types like `varchar`, `integer`, `boolean`, `emailfield`.
 - Converts database query results into `serialized` formats.
+- `serializer` has methods like `all_data` and `one_data`.
