@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from core.crabmodel import CrabModel
 from core.get_data import GetData
-from serializer import viewserial
+from serializer import serializer
 from models import Student
 
 
@@ -11,9 +11,18 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    data = viewserial()
-    print(f'This is data: {data}')
+    model = 'student'
+    fields = ('id', 'name', 'email', 'age')
+    data = serializer(model=model, fields=fields)
     return render_template('index.html', data=data)
+
+
+@app.route("/teacher")
+def teacher():
+    model = 'teacher'
+    fields = ('id', 'name', 'email', 'subject')
+    data = serializer(model=model, fields=fields)
+    return render_template('teacher.html', data=data)
 
 
 if __name__ == '__main__':

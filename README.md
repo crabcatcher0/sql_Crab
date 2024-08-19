@@ -1,10 +1,13 @@
-# Custom ORM for SQLite
+# Custom ORM For SQLite
 
-Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in Python. Provides basic functionality for creating tables and adding columns to a database using a class-based approach.
+Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in Python.
 
-## Features
 
-- Create tables with an auto-incrementing primary key.
-- Classes mapped to the table name.
-- Define columns with data types like `VARCHAR`, `INTEGER`, `BOOLEAN` and `EMAILFIELD`.
+### Features:
+- **Flask Integration:** Integration with Flask, providing web routing, request handling, and response rendering.
 
+- **ORM:**
+- Creates table with Auto Incremented Primary Key
+- Table names are mapped to classes
+- Define columns with data types like `varchar`, `integer`, `boolean`, `emailfield`.
+- Converts database query results into `serialized` formats.

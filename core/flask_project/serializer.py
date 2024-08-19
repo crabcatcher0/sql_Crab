@@ -2,8 +2,6 @@ from core.serializer import Serializer
 
 
 
-def viewserial():
-    model = 'student'
-    fields = ('id', 'name', 'email', 'age')
-    data = Serializer.all(model=model, fields=fields)
+def serializer(model: str, fields: tuple):
+    data = Serializer.all_data(model=model, fields=fields)
     return data

@@ -11,3 +11,17 @@ class Student(CrabModel):
     }
 
 
+class Teacher(CrabModel):
+    _column = {
+        'name': DataTypes.varchar(max_length=20),
+        'email': DataTypes.emailfield(unique=True),
+        'subject': DataTypes.varchar(max_length=30)
+    }
+
+
+class Teacher(Data):
+    _data = {
+        'name': 'kamal',
+        'email': 'kamal@gmail.com',
+        'subject': 'science'
+    }
