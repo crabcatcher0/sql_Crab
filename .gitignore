@@ -1,6 +1,4 @@
-env/
-/env
-env
+venv
 test.db
 rough.py
 __pycache__/
