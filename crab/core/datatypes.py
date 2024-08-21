@@ -1,5 +1,7 @@
-import sqlite3
-from .settings import DATABASE_NAME
+"""
+    : Datatypes
+"""
+
 
 
 class DataTypes:
@@ -25,6 +27,12 @@ class DataTypes:
             return 'VARCHAR(255) UNIQUE NOT NULL'
         else:
             return 'VARCHAR(255) UNIQUE NOT NULL'
+    
+
+    @staticmethod
+    def datetimefield(auto_add_now=True):
+        if auto_add_now:
+            return  'DATETIME DEFAULT CURRENT_TIMESTAMP'
         
 
 

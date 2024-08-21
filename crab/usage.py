@@ -1,19 +1,20 @@
-from datatypes import DataTypes
-from crabmodel import CrabModel, foreignkey
-from add_data import Data
-from get_data import GetData
+from core.datatypes import DataTypes
+from core.crabmodel import CrabModel, foreignkey
+from core.add_data import Data
+from core.get_data import GetData
 """
     Create the class name as of table name,
     _column dict, where keys are column name and values are datatypes.
     
 """
 
-# class Student(CrabModel):
-#     _column = {
-#         'name': DataTypes.varchar(20),
-#         'email': DataTypes.emailfield(),
-#         'age': DataTypes.integer(),
-#     }
+class Student(CrabModel):
+    _column = {
+        'name': DataTypes.varchar(20),
+        'email': DataTypes.emailfield(),
+        'age': DataTypes.integer(),
+        'created_at': DataTypes.datetimefield(auto_add_now=True)
+    }
 
 
 
@@ -24,13 +25,15 @@ from get_data import GetData
 #     )
 
 
-# class Teacher(CrabModel):
-#     _column = {
-#         'name': DataTypes.varchar(max_length=20),
-#         'subject': DataTypes.varchar(max_length=30),
-#         'email' : DataTypes.varchar(),
-#         'is_substitute': DataTypes.boolean(),
-#     }
+class Teacher(CrabModel):
+    _column = {
+        'name': DataTypes.varchar(max_length=20),
+        'subject': DataTypes.varchar(max_length=30),
+        'email' : DataTypes.varchar(),
+        'is_substitute': DataTypes.boolean(),
+        'created_at': DataTypes.datetimefield(auto_add_now=True)
+    }
+
 
 
 

@@ -1,6 +1,6 @@
-from crab.crabmodel import CrabModel
-from crab.add_data import Data
-from crab.datatypes import DataTypes
+from crab.core.crabmodel import CrabModel
+from crab.core.add_data import Data
+from crab.core.datatypes import DataTypes
 
 
 class Student(CrabModel):

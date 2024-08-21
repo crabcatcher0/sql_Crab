@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 from serializer import serializer
-from crab.add_data import Data
+from crab.core.add_data import Data
 
 
 app = Flask(__name__)
@@ -46,7 +46,9 @@ def add_student():
 
 @app.route("/success")
 def success():
-    return "Student added successfully!"
+    return "Operation Success!"
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

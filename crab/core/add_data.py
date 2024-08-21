@@ -1,5 +1,5 @@
 import sqlite3
-from .settings import DATABASE_NAME
+from settings import DATABASE_NAME
 
 
 class Data:
@@ -36,3 +36,5 @@ class Data:
             table_name=cls.table_name,
             column=cls._data
         )
+
+
