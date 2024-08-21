@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
 from serializer import serializer
-from crab.core.add_data import Data
+from models import Student, Teacher
 
 
 app = Flask(__name__)
@@ -27,26 +27,56 @@ def teacher():
 
 @app.route("/add_student", methods=["GET", "POST"])
 def add_student():
-    model = 'student'
     data = None
     if request.method == 'POST':
         name = request.form.get('student_name')
         age = request.form.get('age')
         email = request.form.get('email')
-        data = Data.add_data(table_name=model, column={
-            'name': name,
+        data = {
+            'name':name,
+            'age': age,
             'email': email,
-            'age':age
-        })
+        }
+        Student.add_data(column=data)
         return redirect(url_for('success'))
 
     return render_template('add_student.html', data=data)
 
 
 
+@app.route("/add_teacher", methods = ['GET', 'POST'])
+def add_teacher():
+    if request.method == 'POST':
+        name = request.form.get('teacher_name')
+        subject = request.form.get('subject')
+        email = request.form.get('email')
+        data = {
+            'name': name,
+            'subject':subject,
+            'email': email
+        }
+        Teacher.add_data(column=data)
+        return redirect(url_for('success'))
+    
+    return render_template('add_teacher.html')
+
+
+
+
+@app.route("/delete/<int:pk>", methods=['POST'])
+def delete_data(pk):
+    try:
+        Student.delete(pk=pk)
+        return jsonify({"message": f"Record deleted successfully."}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+
 @app.route("/success")
 def success():
     return "Operation Success!"
+
 
 
 

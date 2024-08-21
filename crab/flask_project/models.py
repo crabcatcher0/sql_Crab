@@ -1,5 +1,4 @@
 from crab.core.crabmodel import CrabModel
-from crab.core.add_data import Data
 from crab.core.datatypes import DataTypes
 
 
@@ -9,6 +8,8 @@ class Student(CrabModel):
         'email': DataTypes.emailfield(unique=True),
         'age': DataTypes.integer()
     }
+    
+
 
 
 class Teacher(CrabModel):
@@ -19,9 +20,3 @@ class Teacher(CrabModel):
     }
 
 
-class Teacher(Data):
-    _data = {
-        'name': 'kamal',
-        'email': 'kamal@gmail.com',
-        'subject': 'science'
-    }

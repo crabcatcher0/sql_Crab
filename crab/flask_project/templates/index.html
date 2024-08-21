@@ -15,6 +15,8 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Age</th>
+            <th scope="col">Action</th>
+
           </tr>
         </thead>
         <tbody>
@@ -24,6 +26,11 @@
               <td>{{ item.name }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.age }}</td>
+              <td>
+              <form action="/delete/{{ item.id }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+             </form>
+            </td>
             </tr>
             {% endfor %}
         </tbody>

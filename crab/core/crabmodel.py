@@ -1,10 +1,13 @@
 import sqlite3
-from settings import DATABASE_NAME
+from .settings import DATABASE_NAME
 
 
 
 class CrabModel:
-
+    """
+        : Creates table with auto incremented id column.
+    """
+    
     @classmethod
     def table(cls, table_name: str, column: dict):
         database_name = DATABASE_NAME
@@ -35,21 +38,101 @@ class CrabModel:
         conn.close()
 
 
+
     @classmethod
     def add_column(cls, table_name: str, column_name: str, data_type: str):
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
+        cursor.execute(f"""
+            PRAGMA table_info({table_name});
+        """)
+        columns = cursor.fetchall()
+        column_names = [column[1] for column in columns]
+
+        if column_name in column_names:
+            print(f"Column '{column_name}' already exists... Skipping...")
+        else:
+            try:
+                cursor.execute(f"""
+                    ALTER TABLE {table_name}
+                    ADD COLUMN {column_name} {data_type};
+            """)
+                print(f"Column '{column_name}' created.")
+            except Exception as e:
+                print(f'Error: {str(e)}')
+
+        conn.commit()
+        conn.close()
+
+
+
+    @classmethod
+    def add_data(cls, column: dict):
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+        
+        columns = ', '.join(column.keys())
+        placeholders = ', '.join(['?' for _ in column.values()])
+        values = tuple(column.values())
+        table_name = cls.__name__.lower()
+        
         try:
             cursor.execute(f"""
-                ALTER TABLE {table_name}
-                ADD COLUMN {column_name} {data_type};
-        """)
-            print(f"Column '{column_name}' created.")
+                INSERT INTO {table_name} ({columns}) VALUES ({placeholders})
+            """, values)
+
+            print(f'Data added to {table_name}....')
+            
         except Exception as e:
             print(f'Error: {str(e)}')
 
         conn.commit()
         conn.close()
+
+    
+    @classmethod
+    def delete(cls, pk=int):
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+        table_name = cls.__name__.lower()
+        try:
+            cursor.execute(f"""
+                DELETE FROM {table_name} WHERE id = ?;
+                """, (pk,))
+            print(f"Data with id={pk} deleted....Ok..")
+
+        except Exception as e:
+            print(f"Error: {str(e)}")
+
+        conn.commit()
+        conn.close()
+
+
+
+    @classmethod
+    def update(cls, pk: int, **columns):
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+        table_name = cls.__name__.lower()
+        set_clause = ", ".join([f"{col} = ?" for col in columns.keys()])
+        data = list(columns.values())
+        data.append(pk)
+
+        try:
+            cursor.execute(f"""
+                UPDATE {table_name}
+                SET {set_clause}
+                WHERE id=?
+            """, data)
+            print(f"Record with id={pk} updated successfully.")
+
+        except Exception as e:
+            print(f'Error with update: {str(e)}')
+
+        finally:
+            cursor.fetchall()
+            conn.close()
+
 
 
 
@@ -64,24 +147,9 @@ class CrabModel:
             column = cls._column
         )
 
+
+
        
-@staticmethod
-def foreignkey(model: str, col_name: str, ref_model, ref_col):
-    conn = sqlite3.connect(DATABASE_NAME)
-    cursor = conn.cursor()
-    try:
-        cursor.execute(f"""
-            ALTER TABLE {model}
-            ADD CONSTRAINT fk_{col_name} 
-            FOREIGN KEY ({col_name}) 
-            REFERENCES {ref_model} ({ref_col});
-        """)
-        print('Foreign Key Added...Ok..')
-    except Exception as e:
-        print(f'Error: {str(e)}')
-        
-        conn.commit()
-        conn.close()
 
 
 
