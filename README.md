@@ -12,3 +12,4 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 - Define columns with data types like `varchar`, `integer`, `boolean`, `emailfield`.
 - Converts database query results into `serialized` formats.
 - `serializer` has methods like `all_data` and `one_data`.
+- POST data are handled through `Data.add_data(table_name=model, column={dict}})`.
