@@ -1,3 +1,6 @@
+import sqlite3
+from .settings import DATABASE_NAME
+
 
 class DataTypes:
     
@@ -23,3 +26,6 @@ class DataTypes:
         else:
             return 'VARCHAR(255) UNIQUE NOT NULL'
         
+
+
+

@@ -1,5 +1,5 @@
 from datatypes import DataTypes
-from crabmodel import CrabModel
+from crabmodel import CrabModel, foreignkey
 from add_data import Data
 from get_data import GetData
 """
@@ -29,14 +29,8 @@ from get_data import GetData
 #         'name': DataTypes.varchar(max_length=20),
 #         'subject': DataTypes.varchar(max_length=30),
 #         'email' : DataTypes.varchar(),
-#         'is_substitute': DataTypes.boolean()
+#         'is_substitute': DataTypes.boolean(),
 #     }
 
 
 
-# def show():
-#     data = GetData.get_data('student')
-#     result = [list(tpl) for tpl in data]
-#     return result
-
-# print(show())

@@ -1,5 +1,4 @@
-from get_data import GetData
-import sqlite3
+from .get_data import GetData
 """
 
 Database result it converted into list of dict   
@@ -29,9 +28,7 @@ class Serializer:
         return result
         
 
-ss = Serializer.one_data('student', ('id', 'name', 'email', 'age'), 2)
-print(ss)
-        
+
 
 
 

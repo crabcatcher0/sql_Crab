@@ -1,8 +1,6 @@
-from flask import Flask, render_template
-from crab.crabmodel import CrabModel
-from crab.get_data import GetData
+from flask import Flask, render_template, request, url_for, redirect
 from serializer import serializer
-from models import Student
+from crab.add_data import Data
 
 
 app = Flask(__name__)
@@ -22,9 +20,33 @@ def teacher():
     model = 'teacher'
     fields = ('id', 'name', 'email', 'subject')
     data = serializer(model=model, fields=fields)
+    
     return render_template('teacher.html', data=data)
 
 
+
+@app.route("/add_student", methods=["GET", "POST"])
+def add_student():
+    model = 'student'
+    data = None
+    if request.method == 'POST':
+        name = request.form.get('student_name')
+        age = request.form.get('age')
+        email = request.form.get('email')
+        data = Data.add_data(table_name=model, column={
+            'name': name,
+            'email': email,
+            'age':age
+        })
+        return redirect(url_for('success'))
+
+    return render_template('add_student.html', data=data)
+
+
+
+@app.route("/success")
+def success():
+    return "Student added successfully!"
 
 if __name__ == '__main__':
     app.run(debug=True)
