@@ -6,9 +6,13 @@ from models import Student, Teacher
 app = Flask(__name__)
 
 
-
 @app.route("/")
 def home():
+    return render_template('home.html')
+
+
+@app.route("/student")
+def stident():
     model = 'student'
     fields = ('id', 'name', 'email', 'age')
     data = serializer(model=model, fields=fields)
@@ -62,14 +66,14 @@ def add_teacher():
 
 
 
-
 @app.route("/delete/<int:pk>", methods=['POST'])
 def delete_data(pk):
     try:
         Student.delete(pk=pk)
-        return jsonify({"message": f"Record deleted successfully."}), 200
+        return redirect(url_for('success'))
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
 
 
 
