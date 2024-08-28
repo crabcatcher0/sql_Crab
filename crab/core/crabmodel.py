@@ -5,9 +5,13 @@ from .settings import DATABASE_NAME
 
 class CrabModel:
     """
-        : Creates table with auto incremented id column.
+    :: Base class for creating database tables with auto-incremented primary keys.
+    - Automatically creates a table with a primary key column named 'id' that auto-increments.
+    - Foreign Keys are if given it creates the table with it too.
+    - Checks if the table already exists if it exist it skips creation.
+    - Constructs the column and optional foreign key constraints.
     """
-    
+
     @classmethod
     def table(cls, table_name: str, column: dict, foreign_keys:list = None):
         database_name = DATABASE_NAME
@@ -151,11 +155,18 @@ class CrabModel:
             column = cls._column
         )
 
-       
-
-
 
 class ForeignKey:
+    """
+    Utility class for creating foreign key constraints in table definitions.
+    - create_foreignkey(field_name: str, referenced_table: str):
+        generates a foreign key constraint for a column.
+    - parameters:
+        - field_name (str): name of the column in the current table that will be a foreign key.
+        - model (str): the name of the table that contains the primary key being referenced.
+    """
+    
     @staticmethod
-    def create_foreignkey(field_name: str, referenced_table: str):
-        return f"FOREIGN KEY ({field_name}) REFERENCES {referenced_table}(id)"
+    def create_foreignkey(field_name: str, model: str):
+        return f"FOREIGN KEY ({field_name}) REFERENCES {model}(id)"
+
