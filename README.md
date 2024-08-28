@@ -14,3 +14,21 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 - `serializer` has methods like `all_data` and `one_data`.
 - Adding records are handled through `YourModel.add_data(column={dict}})`.
 - Deleting records are handled through `YourModel.delete(pk={record's.id})`.
+
+- **Foreign Key:**
+
+- ```python
+
+    class YourModel(CrabModel):
+        _column = { # _column: A dictionary that defines the columns of the table or model.
+            'col_1': DataTypes.integer(),
+            'col_2': DataTypes.integer()
+        }
+
+        foreign_keys = [ #foreign_keys: A list that defines the foreign key constraints for table.
+
+            ForeignKey.create_foreignkey(field_name='col_1', model='model_name'),
+            ForeignKey.create_foreignkey(field_name='col_2', model='second_model')
+        ]
+
+    ```
