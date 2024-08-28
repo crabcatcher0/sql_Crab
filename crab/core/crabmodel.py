@@ -9,7 +9,7 @@ class CrabModel:
     """
     
     @classmethod
-    def table(cls, table_name: str, column: dict):
+    def table(cls, table_name: str, column: dict, foreign_keys:list = None):
         database_name = DATABASE_NAME
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
@@ -23,11 +23,16 @@ class CrabModel:
             print(f"Table '{table_name}' already exists. Skipping...")
         else:
             colmn_def = ", ".join([f"{col} {dtype}" for col, dtype in column.items()])
+
+            fk_constraints = ""
+            if foreign_keys:
+                fk_constraints = ", " + ", ".join(foreign_keys)
             try:
                 cursor.execute(f"""
                     CREATE TABLE {table_name} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     {colmn_def}
+                    {fk_constraints}
                     );
                 """)
                 print(f"Table '{table_name}' created.\nColumn: {', '.join(column.keys())} created.")
@@ -135,7 +140,6 @@ class CrabModel:
 
 
 
-
     @classmethod
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -147,9 +151,11 @@ class CrabModel:
             column = cls._column
         )
 
-
-
        
 
 
 
+class ForeignKey:
+    @staticmethod
+    def create_foreignkey(field_name: str, referenced_table: str):
+        return f"FOREIGN KEY ({field_name}) REFERENCES {referenced_table}(id)"

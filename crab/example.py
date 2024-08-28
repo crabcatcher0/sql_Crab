@@ -1,35 +1,37 @@
 from core.crabmodel import CrabModel
+from usage import Student, Course, Enrollment
 """  Example to add Data  
 """
 
 
-class Student(CrabModel):
-    """
-        : Table name wille set automatically as class name in lowercase
-        : _data is a dict and keys are columns and values are data relative to that columns
-    """
-    
-    _data = {
-        'name':'ram',
+def data_std():
+    data = {
+        'name': 'ram',
         'email': 'ram@gmail.com',
-        'age': 12
+        'address': 'Kathmandu'
     }
+    context = Student.add_data(data)
+    return context
 
 
-class Teacher(CrabModel):
-    _data = {
-        'name':'kamal',
-        'subject': 'math',
-        'email': 'kamal@gmail.com',
-        'is_substitute': True,
-
+def data_course():
+    data = {
+        'course_name': 'Computer Science',
+        'course_code': 'CS101'
     }
-    _data = {
-        'name':'gita',
-        'subject': 'science',
-        'email': 'gita@gmail.com',
-        'is_substitute': False,
+    context = Course.add_data(data)
+    return context
 
+
+def data_enroll():
+    data = {
+        'student_id': 1,
+        'enrolled_course': 1
     }
+    context = Enrollment.add_data(data)
+    return context
 
 
+data_std()
+data_course()
+data_enroll()

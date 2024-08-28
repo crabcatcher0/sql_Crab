@@ -1,6 +1,5 @@
 from core.datatypes import DataTypes
-from core.crabmodel import CrabModel, foreignkey
-from core.add_data import Data
+from core.crabmodel import CrabModel, ForeignKey
 from core.get_data import GetData
 """
     Create the class name as of table name,
@@ -12,28 +11,28 @@ class Student(CrabModel):
     _column = {
         'name': DataTypes.varchar(20),
         'email': DataTypes.emailfield(),
-        'age': DataTypes.integer(),
-        'created_at': DataTypes.datetimefield(auto_add_now=True)
+        'address': DataTypes.varchar(),
     }
 
 
-
-#     role = CrabModel.add_column(   ### add 'role' as new column to student table
-#         table_name = 'student', 
-#         column_name = 'role', 
-#         data_type = DataTypes.boolean()
-#     )
-
-
-class Teacher(CrabModel):
+class Course(CrabModel):
     _column = {
-        'name': DataTypes.varchar(max_length=20),
-        'subject': DataTypes.varchar(max_length=30),
-        'email' : DataTypes.varchar(),
-        'is_substitute': DataTypes.boolean(),
-        'created_at': DataTypes.datetimefield(auto_add_now=True)
+        'course_name': DataTypes.varchar(max_length=20, unique=True),
+        'course_code': DataTypes.varchar(max_length=20, unique=True)
     }
 
+
+
+class Enrollment(CrabModel):
+    _column = {
+        'student_id': DataTypes.integer(),
+        'enrolled_course': DataTypes.integer()
+    }
+
+    foreign_keys = [
+    ForeignKey.create_foreignkey('student_id', 'student'),
+    ForeignKey.create_foreignkey('enrolled_course', 'course')
+    ]
 
 
 
