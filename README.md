@@ -14,7 +14,16 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 - `serializer` has methods like `all_data` and `one_data`.
 - Adding records are handled through `YourModel.add_data(column={dict}})`.
 - Deleting records are handled through `YourModel.delete(pk={record's.id})`.
+- `get_data`  retrieve a single record from the database based on the provided query parameters.
+    ```python
+    #Example
+    user = User.get_data(email="youremail")
+    if user:
+        print(f"User found: {user.user_name} {user.user_age}")
+    else:
+        print("User not found.")
 
+    ```
 - **Foreign Key:**
 
 - ```python
