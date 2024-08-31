@@ -53,7 +53,7 @@ class User(CrabModel):
 # Creating a new user
 user = User.add_data(
     'name': 'YourName',
-    email': 'youremail@email.com'
+    'email': 'youremail@email.com'
 )
 
 # Querying the database (serialized)
@@ -114,11 +114,11 @@ newCol = CrabModel.add_column(
                 <p>The `DataTypes` class provides a set of static methods to define various data types and constraints. These methods can be used to specify the type of data that a column will hold, along with optional constraints such as `NOT NULL`, `UNIQUE`, and references.</p>
                 <h3>Available Data Types</h3>
                 <ul>
-                    <li><strong>varchar(max_length=255, unique=False)</strong>: Defines a `VARCHAR` column with a maximum length and optional `UNIQUE` constraint. The default maximum length is 255 characters.</li>
-                    <li><strong>integer()</strong>: Defines an `INTEGER` column that cannot be `NULL`.</li>
-                    <li><strong>boolean()</strong>: Defines a `BOOLEAN` column. This data type can store `True` or `False` values.</li>
-                    <li><strong>emailfield(unique=True)</strong>: Defines a `VARCHAR` column specifically for storing email addresses. It includes a `UNIQUE` constraint by default.</li>
-                    <li><strong>datetimefield(auto_add_now=True)</strong>: Defines a `DATETIME` column that automatically sets its value to the current timestamp when a new record is added.</li>
+                    <li class="mb-2"><strong>varchar(max_length=255, unique=False)</strong>: Defines a `VARCHAR` column with a maximum length and optional `UNIQUE` constraint. The default maximum length is 255 characters.</li>
+                    <li class="mb-2"><strong>integer()</strong>: Defines an `INTEGER` column that cannot be `NULL`.</li>
+                    <li class="mb-2"><strong>boolean()</strong>: Defines a `BOOLEAN` column. This data type can store `True` or `False` values.</li>
+                    <li class="mb-2"><strong>emailfield(unique=True)</strong>: Defines a `VARCHAR` column specifically for storing email addresses. It includes a `UNIQUE` constraint by default.</li>
+                    <li class="mb-2"><strong>datetimefield(auto_add_now=True)</strong>: Defines a `DATETIME` column that automatically sets its value to the current timestamp when a new record is added.</li>
                 </ul>
                 <h3>Usage Examples</h3>
                 <pre><code class="language-python">
@@ -144,7 +144,7 @@ class Student(CrabModel):
                 </ul>
                 <h4>Parameters</h4>
                 <ul>
-                    <li><strong>field_name</strong> (str): The name of the column in the current table that will act as a foreign key.</li>
+                    <li class="mb-2"><strong>field_name</strong> (str): The name of the column in the current table that will act as a foreign key.</li>
                     <li><strong>model</strong> (str): The name of the table that contains the primary key being referenced by the foreign key.</li>
                 </ul>
                 <h3>Usage Example</h3>
@@ -167,8 +167,8 @@ class Enrollment(CrabModel):
                 <h3>Querying Data</h3>
                 <p>Several methods are available for querying data:</p>
                 <ul>
-                    <li><strong>all_data(model: str, fields: tuple)</strong>: Fetches all records from the specified model, including only the fields listed in the `fields` tuple.</li>
-                    <li><strong>get_data(model: str, **filters)</strong>: Retrieves records from the specified model that match the given filter criteria.</li>
+                    <li class="mb-2"><strong>all_data(model: str, fields: tuple)</strong>: Fetches all records from the specified model, including only the fields listed in the `fields` tuple.</li>
+                    <li class="mb-2"><strong>get_data(model: str, **filters)</strong>: Retrieves records from the specified model that match the given filter criteria.</li>
                 </ul>
                 <h3>Usage Examples</h3>
                 <pre><code class="language-python">
@@ -191,8 +191,6 @@ def fetch_user_by_email(email):
                     The <strong>Serializer</strong> class is a utility designed to convert
                     database query results into a more manageable format, 
                     specifically a list of dictionaries or a single dictionary.
-                    This is particularly useful when handling data in web applications or APIs,
-                    where structured data is often required.
                 </p>
             
                 <h3>Methods</h3>
@@ -204,8 +202,8 @@ def fetch_user_by_email(email):
                         </p>
                         <p><strong>Parameters:</strong></p>
                         <ul>
-                            <li><strong>model:</strong> The name of the model to query.</li>
-                            <li><strong>fields:</strong> A tuple of field names to include in the result.</li>
+                            <li class="mb-2"><strong>model:</strong> The name of the model to query.</li>
+                            <li class="mb-2"><strong>fields:</strong> A tuple of field names to include in the result.</li>
                         </ul>
                         <p><strong>Returns:</strong> A list of dictionaries, each representing a row of data.</p>
                     </li>
@@ -217,8 +215,8 @@ def fetch_user_by_email(email):
                         </p>
                         <p><strong>Parameters:</strong></p>
                         <ul>
-                            <li><strong>model:</strong> The name of the model to query.</li>
-                            <li><strong>fields:</strong> A tuple of field names to include in the result.</li>
+                            <li class="mb-2"><strong>model:</strong> The name of the model to query.</li>
+                            <li class="mb-2"><strong>fields:</strong> A tuple of field names to include in the result.</li>
                             <li><strong>pk:</strong> The primary key of the record to fetch.</li>
                         </ul>
                         <p><strong>Returns:</strong> A dictionary representing the row of data.</p>
