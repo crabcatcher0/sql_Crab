@@ -4,7 +4,7 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 
 
 ### Features:
-- **Flask Integration:** Integration with Flask, providing web routing, request handling, and response rendering.
+- **Flask Integration:** Integration with Flask to document entire project.
 
 - **ORM:**
 - Creates table with Auto Incremented Primary Key
