@@ -7,9 +7,17 @@ Database result it converted into list of dict
 """
 
 class Serializer:
-
+    
     @staticmethod
     def all_data(model: str, fields: tuple):
+        """
+        Fetches all records for a given model and serializes them into a list of dictionaries.
+
+        :param model: The name of the model to query.
+        :param fields: A tuple of field names to include in the result.
+        :return: A list of dictionaries, each representing a row of data.
+        """
+
         data = GetData.get_data(model, fields=fields)
         tup_data = tuple(data)
 
@@ -23,7 +31,15 @@ class Serializer:
     
     @staticmethod
     def one_data(model: str, fields: tuple, pk: int):
-        data = GetData.get_one_or_404(model, fields, pk=pk)
+        """
+        Fetches a single record by primary key and serializes it into a dictionary.
+
+        :param model: The name of the model to query.
+        :param fields: A tuple of field names to include in the result.
+        :param pk: The primary key of the record to fetch.
+        :return: A dictionary representing the row of data.
+        """
+        data = GetData.get_one(model, fields, pk=pk)
         result = dict(zip(fields, data))
         return result
         
