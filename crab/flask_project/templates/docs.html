@@ -1,0 +1,216 @@
+{% include "base.html" %}
+
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#usage">Usage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#methods">Methods</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#datatypes">DataTypes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#foreignkey">Foreignkey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#getdata">GetData</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex flex-column align-items-center">
+                <h1 class="text-left">Documentation</h1>
+
+                <section id="overview" class="mt-5 w-100">
+                    <h2>Overview</h2>
+                    <p>This documentation provides an overview of the custom ORM developed for managing database operations.</p>
+                </section>
+
+                <section id="usage" class="mt-5 w-100">
+                    <h2>Usage</h2>
+                    <p>The following code examples demonstrate how to use the custom ORM to interact with the database:</p>
+                    <pre><code class="language-python">
+
+# Example of defining a model
+from core.datatypes import Datatypes
+
+class User(CrabModel):
+    _column = { # _column dict, where keys are column names and values are datatypes.
+        'name': Datatypes.varchar(max_length=25),
+        'email': Datatypes.emailfield(unique=True)
+    }
+
+# Creating a new user
+user = User.add_data(
+    'name': 'YourName',
+    email': 'youremail@email.com'
+)
+
+# Querying the database (serialized)
+from core.serializer import Serializer
+
+def data_serializer(model, fields):
+    data = Serializer.all_data(
+        model=model,
+        fields=fields
+    )
+    return data
+
+def get_serialized_data(): 
+    user = data_serializer(
+        model='model', 
+        fields=('id', 'name', 'email')  # fields is a tuple
+    )
+    result = User.get_data(user) # get_data method
+    return result
+                    </code></pre>
+                </section>
+
+                <section id="methods" class="mt-5 w-100">
+                    <h2>Methods</h2>
+                    <p>The ORM provides several methods for database operations:</p>
+                    <ul>
+                        <li><strong>add_data()</strong>: Method used to add a dictionary of data to an instance of a model. This method allows you to bulk insert data into a model by passing a dictionary where the keys correspond to the column names and the values correspond to the data you want to insert.
+                            <pre><code class="language-python">
+
+# Example
+data = {
+    'name': 'user1',
+    'email': 'user1@gmail.com',
+}
+User.add_data(data)
+                            </code></pre>
+                        </li>
+                        <li><strong>delete()</strong>: A class method used to delete a record from the database table associated with the model. The record to be deleted is identified by its primary key (id).
+                            <pre><code class="language-python">
+
+# Example 
+# Deleting a user with a specific ID
+User.delete(pk=1)
+                            </code></pre>
+                        </li>
+                        <li><strong>add_column()</strong>: Method used to add a new column to an existing table in the database. Before adding the column, it checks if the column already exists in the table. If the column exists, it skips the addition; if not, it adds the new column.
+                            <pre><code class="language-python">
+
+# Example usage of the add_column method
+# Adding new column to existing 'user' table
+newCol = CrabModel.add_column(
+    model='user',
+    fields='newCol',
+    datatype=DataTypes.varchar(max_length=10)
+)
+                            </code></pre>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="datatypes" class="mt-5 w-100">
+                    <h2>DataTypes</h2>
+                    <p>The `DataTypes` class provides a set of static methods to define various data types and constraints. These methods can be used to specify the type of data that a column will hold, along with optional constraints such as `NOT NULL`, `UNIQUE`, and references.</p>
+                    <h3>Available Data Types</h3>
+                    <ul>
+                        <li class="mb-2"><strong>varchar(max_length=255, unique=False)</strong>: Defines a `VARCHAR` column with a maximum length and optional `UNIQUE` constraint. The default maximum length is 255 characters.</li>
+                        <li class="mb-2"><strong>integer()</strong>: Defines an `INTEGER` column that cannot be `NULL`.</li>
+                        <li class="mb-2"><strong>boolean()</strong>: Defines a `BOOLEAN` column. This data type can store `True` or `False` values.</li>
+                        <li class="mb-2"><strong>emailfield(unique=True)</strong>: Defines a `VARCHAR` column specifically for storing email addresses. It includes a `UNIQUE` constraint by default to ensure that each email address is unique and cannot be `NULL`.</li>
+                        <li class="mb-2"><strong>datetimefield(auto_add_now=True)</strong>: Defines a `DATETIME` column that automatically sets its value to the current timestamp when a new record is added. This is useful for storing the date and time when a record is created.</li>
+                    </ul>
+                    <h3>Usage Examples</h3>
+                    <p>Below are some examples of how to use the `DataTypes` class to define columns in your models:</p>
+                    <pre><code class="language-python">
+
+class Student(CrabModel):
+    _column = {
+        'name': DataTypes.varchar(max_length=100),
+        'age': DataTypes.integer(),
+        'email': DataTypes.emailfield(),
+        'created_at': DataTypes.datetimefield()
+    }
+                    </code></pre>
+                    <p>In the examples above, the `Student` model includes columns for storing a student's name, age, email, and the timestamp of their creation.</p>
+                </section>
+
+                <section id="foreignkey" class="mt-5 w-100">
+                    <h2>ForeignKey</h2>
+                    <p>The `ForeignKey` class is a utility designed to facilitate the creation of foreign key constraints in database table definitions. Foreign keys are critical in relational databases as they establish a link between two tables, ensuring data integrity by enforcing relationships between the records in these tables.</p>
+                    <h3>Creating Foreign Keys</h3>
+                    <p>The `ForeignKey` class provides a static method, `create_foreignkey`, which generates a foreign key constraint for a specific column in a table. This method is particularly useful when defining models that require relationships with other tables in the database.</p>
+                    <h4>Method Details</h4>
+                    <ul>
+                        <li class="mb-2"><strong>create_foreignkey(field_name: str, model: str)</strong>: This method generates a foreign key constraint for the specified `field_name`, linking it to the `id` column of the referenced `model` (table).</li>
+                    </ul>
+                    <h4>Parameters</h4>
+                    <ul>
+                        <li class="mb-2"><strong>field_name</strong> (str): The name of the column in the current table that will act as a foreign key.</li>
+                        <li class="mb-2"><strong>model</strong> (str): The name of the table that contains the primary key being referenced by the foreign key.</li>
+                    </ul>
+                    <h3>Usage Example</h3>
+                    <p>Consider the following example where an `Enrollment` model is defined. This model includes two foreign keys, `student_id` and `enrolled_course`, which reference the `student` and `course` tables, respectively:</p>
+                    <pre><code class="language-python">
+
+# Example
+class Enrollment(CrabModel): 
+    _column = {
+        'student_id': DataTypes.integer(),
+        'enrolled_course': DataTypes.integer()
+    } 
+    foreign_keys = [ 
+        ForeignKey.create_foreignkey('student_id', 'student'),
+        ForeignKey.create_foreignkey('enrolled_course', 'course')
+    ]
+                    </code></pre>
+                    <p>In this example:</p>
+                    <ul>
+                        <li class="mb-2">`student_id` is a foreign key that references the `id` column of the `student` table.</li>
+                        <li class="mb-2">`enrolled_course` is a foreign key that references the `id` column of the `course` table.</li>
+                    </ul>
+                </section>
+
+                <section id="getdata" class="mt-5 w-100">
+                    <h2>GetData</h2>
+                    <p>The `GetData` class provides utility methods for querying and retrieving data from the database. It facilitates the fetching of records based on various criteria, making it easier to perform read operations on the database.</p>
+                    <h3>Querying Data</h3>
+                    <p>Several methods are available for querying data:</p>
+                    <ul>
+                        <li class="mb-2"><strong>all_data(model: str, fields: tuple)</strong>: Fetches all records from the specified model, including only the fields listed in the `fields` tuple.</li>
+                        <li class="mb-2"><strong>get_data(model: str, **filters)</strong>: Retrieves records from the specified model that match the given filter criteria. Filters are provided as keyword arguments.</li>
+                    </ul>
+                    <h3>Usage Examples</h3>
+                    <pre><code class="language-python">
+
+# Example of retrieving all data from the User model
+def fetch_all_users():
+    return GetData.all_data(
+        model='User',
+        fields=('id', 'name', 'email')
+    )
+
+# Example of retrieving user data with specific filters
+def fetch_user_by_email(email):
+    return GetData.get_data(
+        model='User',
+        email=email
+    )
+                    </code></pre>
+                    <p>In these examples:</p>
+                    <ul>
+                        <li class="mb-2">`fetch_all_users` retrieves all user records with only the `id`, `name`, and `email` fields.</li>
+                        <li class="mb-2">`fetch_user_by_email` retrieves user records where the email matches the provided value.</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

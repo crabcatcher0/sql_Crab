@@ -23,7 +23,7 @@ class GetData:
     
     
     @staticmethod
-    def get_one_or_404(table_name: str, fields: tuple, pk=None):
+    def get_one(table_name: str, fields: tuple, pk=None):
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
         row = None

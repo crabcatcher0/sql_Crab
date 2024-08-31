@@ -1,7 +1,6 @@
 """
     : Datatypes
 """
-import sqlite3
 from .settings import DATABASE_NAME
 
 

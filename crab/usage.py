@@ -22,7 +22,6 @@ class Course(CrabModel):
     }
 
 
-
 class Enrollment(CrabModel):
     _column = {
         'student_id': DataTypes.integer(),
