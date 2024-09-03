@@ -41,3 +41,13 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
         ]
 
     ```
+- **`filter_data` Method**
+- `filter_data` method is a class method to filter records from the database table associated with the class. It retrieves rows from the specified table where a given column matches a specified value and returns these rows as a list of dictionaries.
+
+```python
+
+    #Example:
+    results = YourModel.filter_data('field_name', 'value')
+    print(results)
+    [{'id': 1, 'column_name': 'value', 'other_column': 'other_value'}, ...] #output
+    ```

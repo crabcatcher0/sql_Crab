@@ -115,6 +115,34 @@ class CrabModel:
 
         conn.commit()
         conn.close()
+
+    
+    @classmethod
+    def filter_data(cls, field: str, value):
+        """
+        Filters data from the table associated with the class based on a specified field and value.
+
+        This method executes a query to select all records from the table
+        where the given field matches the specified value, and returns the results 
+        as a list of dictionaries.
+        Each dictionary represents a row in the table, 
+        with column names as keys and corresponding values.
+        """
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+        model = cls.__name__.lower()
+
+        query = f"SELECT * FROM {model} WHERE {field} = ?"
+        cursor.execute(query, (value,))
+        
+        rows = cursor.fetchall()
+        columns = [desc[0] for desc in cursor.description]
+        
+        result = [dict(zip(columns, row)) for row in rows]
+        
+        conn.close()
+        
+        return result
         
 
 
