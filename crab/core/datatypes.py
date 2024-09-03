@@ -2,7 +2,7 @@
     : Datatypes
 """
 from .settings import DATABASE_NAME
-
+import re
 
 class DataTypes:
     
@@ -10,7 +10,6 @@ class DataTypes:
     def varchar(max_length=255, unique=False):
         unique_const = "UNIQUE" if unique else ""
         return f'VARCHAR({max_length}) NOT NULL {unique_const}'.strip()
-
 
 
     @staticmethod

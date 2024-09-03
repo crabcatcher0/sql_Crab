@@ -100,7 +100,7 @@ class CrabModel:
 
     
     @classmethod
-    def delete(cls, pk=int):
+    def delete(cls, pk: int):
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
         table_name = cls.__name__.lower()
@@ -115,50 +115,7 @@ class CrabModel:
 
         conn.commit()
         conn.close()
-
-
-
-    @classmethod
-    def update(cls, pk: int, **columns):
-        conn = sqlite3.connect(DATABASE_NAME)
-        cursor = conn.cursor()
-        table_name = cls.__name__.lower()
-        set_clause = ", ".join([f"{col} = ?" for col in columns.keys()])
-        data = list(columns.values())
-        data.append(pk)
-
-        try:
-            cursor.execute(f"""
-                UPDATE {table_name}
-                SET {set_clause}
-                WHERE id=?
-            """, data)
-            print(f"Record with id={pk} updated successfully.")
-
-        except Exception as e:
-            print(f'Error with update: {str(e)}')
-
-        finally:
-            cursor.fetchall()
-            conn.close()
-    
-
-    @classmethod
-    def get_data(cls, **kwargs):
-        conn = sqlite3.connect(DATABASE_NAME)
-        cursor = conn.cursor()
-
-        column, value = list(kwargs.items())[0]
-        query = f"SELECT * FROM {cls.table_name} WHERE {column} = ?"
         
-        cursor.execute(query, (value,))
-        row = cursor.fetchone()
-        conn.close()
-        if row:
-            return cls(*row)
-        return None
-
-
 
 
     @classmethod
