@@ -106,6 +106,14 @@ newCol = CrabModel.add_column(
 )
                         </code></pre>
                     </li>
+                    <li><strong>filter_data()</strong>: It is a class method used to filter records from the database table associated with the class. It retrieves rows from the specified table where a given column matches a specified value and returns these rows as a list of dictionaries.
+                    <pre><code class="language-python">
+#Example:
+results = YourModel.filter_data('field_name', 'value')
+print(results)
+[{'id': 1, 'column_name': 'value', 'other_column': 'other_value'}, ...] #Output
+                        </code></pre>
+                    </li>
                 </ul>
             </section>
 
