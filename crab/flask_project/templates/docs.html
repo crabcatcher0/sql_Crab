@@ -5,27 +5,11 @@
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
             <ul class="nav flex-column">
+                {% for link in data %}
                 <li class="nav-item">
-                    <a class="nav-link active" href="#overview">Overview</a>
+                    <a class="nav-link active" href="{{ link }}">{{ link[1:] | capitalize }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#usage">Usage</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#methods">Methods</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#datatypes">DataTypes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#foreignkey">Foreignkey</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#getdata">GetData</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#serializer">Serializer</a>
-                </li>
+                {% endfor %}
             </ul>
         </nav>
 
@@ -75,10 +59,10 @@ def get_serialized_data():
     return result
                 </code></pre>
             </section>
-
+            {% if method_data %}
             <section id="methods" class="mt-5 w-100">
-                <h2>Methods</h2>
-                <p>The ORM provides several methods for database operations:</p>
+                <h2>{{ method_data.title }}</h2>
+                <p>{{ method_data.overview }}</p>
                 <ul>
                     <li><strong>add_data()</strong>: Method used to add a dictionary of data to an instance of a model. This method allows you to bulk insert data into a model by passing a dictionary where the keys correspond to the column names and the values correspond to the data you want to insert.
                         <pre><code class="language-python">
@@ -90,6 +74,7 @@ data = {
 User.add_data(data)
                         </code></pre>
                     </li>
+                    {% endif %}
                     <li><strong>delete()</strong>: A class method used to delete a record from the database table associated with the model. The record to be deleted is identified by its primary key (id).
                         <pre><code class="language-python">
 # Example 
