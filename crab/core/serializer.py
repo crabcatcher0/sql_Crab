@@ -17,14 +17,17 @@ class Serializer:
         :param fields: A tuple of field names to include in the result.
         :return: A list of dictionaries, each representing a row of data.
         """
+        try:
+            data = GetData.get_data(model, fields=fields)
+            tup_data = tuple(data)
 
-        data = GetData.get_data(model, fields=fields)
-        tup_data = tuple(data)
-
-        final_result = []
-        for tup in tup_data:
-            zip_data = dict(zip(fields, tup))
-            final_result.append(zip_data)
+            final_result = []
+            for tup in tup_data:
+                zip_data = dict(zip(fields, tup))
+                final_result.append(zip_data)
+                
+        except Exception as e:
+            print(f"Error on serializer: {str(e)}")
 
         return final_result
     

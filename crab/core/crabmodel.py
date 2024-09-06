@@ -122,28 +122,32 @@ class CrabModel:
         """
         Filters data from the table associated with the class based on a specified field and value.
 
-        This method executes a query to select all records from the table
-        where the given field matches the specified value, and returns the results 
-        as a list of dictionaries.
         Each dictionary represents a row in the table, 
         with column names as keys and corresponding values.
         """
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
         model = cls.__name__.lower()
+        result = []
+        try:
+            query = f"SELECT * FROM {model} WHERE {field} = ?"
+            cursor.execute(query, (value,))
+        
+            rows = cursor.fetchall()
+            columns = [desc[0] for desc in cursor.description]
+        
+            result = [dict(zip(columns, row)) for row in rows]
 
-        query = f"SELECT * FROM {model} WHERE {field} = ?"
-        cursor.execute(query, (value,))
-        
-        rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        
-        result = [dict(zip(columns, row)) for row in rows]
-        
-        conn.close()
+        except Exception as e:
+            print(f"Database error on filter: {str(e)}")
+
+        finally:
+            conn.close()
         
         return result
-        
+
+
+
 
 
     @classmethod
@@ -160,7 +164,7 @@ class CrabModel:
 
 class ForeignKey:
     """
-    Utility class for creating foreign key constraints in table definitions.
+        Utility class for creating foreign key constraints in table definitions.
     - create_foreignkey(field_name: str, referenced_table: str):
         generates a foreign key constraint for a column.
     - parameters:

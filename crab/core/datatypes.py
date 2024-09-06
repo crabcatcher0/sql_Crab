@@ -2,7 +2,6 @@
     : Datatypes
 """
 from .settings import DATABASE_NAME
-import re
 
 class DataTypes:
     
