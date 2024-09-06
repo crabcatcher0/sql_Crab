@@ -7,17 +7,17 @@ from usage import Student, Course, Enrollment
 """
 
 
-# def data_std():
-#     data = {
-#         'name': 'ram',
-#         'email': 'ram@gmail.com',
-#         'address': 'Kathmandu'
-#     }
-#     context = Student.add_data(data)
-#     return context
+def data_std():
+    data = {
+        'name': 'gita',
+        'email': 'gita@gmail.com',
+        'address': 'Lokanthali'
+    }
+    context = Student.add_data(data)
+    return context
 
 
-# data_std()
+data_std()
 
 
 # def edit():
@@ -28,5 +28,7 @@ from usage import Student, Course, Enrollment
     
 #     return data
 
-
 # edit()
+
+data = Student.order_by('created_at', descending=True)
+print(data)

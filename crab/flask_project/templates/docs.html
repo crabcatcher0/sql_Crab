@@ -98,7 +98,15 @@ results = YourModel.filter_data('field_name', 'value')
 print(results)
 [{'id': 1, 'column_name': 'value', 'other_column': 'other_value'}, ...] #Output
                         </code></pre>
-                    </li>
+                        <li><strong>order_by()</strong>: It is a class method that fetches the records in a a specific order by column.
+                        <pre><code class="language-python">
+#Example
+YourModel.order_by(column_name='created_at', descending=True) 
+#descending is a flag indicating whether to sort in descending order by default it is False.
+ 
+                        </code></pre>    
+                    </li>               
+                </li>
                 </ul>
             </section>
 

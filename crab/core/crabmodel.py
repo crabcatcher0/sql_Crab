@@ -147,6 +147,30 @@ class CrabModel:
         return result
 
 
+    @classmethod
+    def order_by(cls, column_name: str, descending: bool = False):
+        """
+        Fetch and return all records ordered by the specified column.
+        """
+
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+        model = cls.__name__.lower()
+        order = 'DESC' if descending else 'ASC'
+
+        try:
+            query = f"SELECT * FROM {model} ORDER BY {column_name} {order}"
+            cursor.execute(query)
+            data = cursor.fetchall() 
+            columns = [desc[0] for desc in cursor.description]
+        
+            result = [dict(zip(columns, row)) for row in data]
+            print("Operation Order by....OK")
+        except Exception as e:
+            print(f"Database error on order_by: {str(e)}")
+        finally:
+            conn.close()
+        return result
 
 
 

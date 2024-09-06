@@ -12,6 +12,7 @@ class Student(CrabModel):
         'name': DataTypes.varchar(20),
         'email': DataTypes.emailfield(),
         'address': DataTypes.varchar(),
+        'created_at': DataTypes.datetimefield()
     }
 
 

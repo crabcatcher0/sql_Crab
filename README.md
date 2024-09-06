@@ -44,10 +44,20 @@ Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in P
 - **`filter_data` Method**
 - `filter_data` method is a class method to filter records from the database table associated with the class. It retrieves rows from the specified table where a given column matches a specified value and returns these rows as a list of dictionaries.
 
-```python
+    ```python
 
     #Example:
     results = YourModel.filter_data('field_name', 'value')
     print(results)
     [{'id': 1, 'column_name': 'value', 'other_column': 'other_value'}, ...] #output
     ```
+
+- **`order_by` Method**
+The `order_by` method allows to fetch records from the database ordered by a specific column. This method is implemented as a class method, meaning it can be called directly on a model class.
+
+- Returns records from a table and order them by a column name in `dict` form.
+    ```python
+
+    #Example
+    result = YourModel.order_by('created_at', descending=True) #flag indicating whether to sort in descending order by default it is False.
+    print(result)
