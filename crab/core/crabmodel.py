@@ -11,6 +11,7 @@ class CrabModel:
     - Checks if the table already exists if it exist it skips creation.
     - Constructs the column and optional foreign key constraints.
     """
+    
 
     @classmethod
     def table(cls, table_name: str, column: dict, foreign_keys:list = None):
@@ -172,6 +173,24 @@ class CrabModel:
             conn.close()
         return result
 
+
+
+    @classmethod
+    def get_data(cls, **kwargs):
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+
+        column, value = list(kwargs.items())[0]
+        
+        query = f"SELECT * FROM {cls.table_name} WHERE {column} = ?"
+        cursor.execute(query, (value,))
+        row = cursor.fetchone()
+        conn.close()
+
+        if row:
+            return cls(*row)
+        return None
+    
 
 
     @classmethod
