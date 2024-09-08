@@ -12,6 +12,7 @@ class CrabModel:
     - Constructs the column and optional foreign key constraints.
     """
     
+    
 
     @classmethod
     def table(cls, table_name: str, column: dict, foreign_keys:list = None):
@@ -207,7 +208,7 @@ class CrabModel:
 
 class ForeignKey:
     """
-        Utility class for creating foreign key constraints in table definitions.
+    Utility class for creating foreign key constraints in table definitions.
     - create_foreignkey(field_name: str, referenced_table: str):
         generates a foreign key constraint for a column.
     - parameters:

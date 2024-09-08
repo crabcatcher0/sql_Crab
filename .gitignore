@@ -5,3 +5,4 @@ rough.py
 __pycache__/
 *.py[cod]
 *$py.class
+database.py
