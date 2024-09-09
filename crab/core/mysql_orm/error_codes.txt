@@ -2,3 +2,5 @@ e.errno == 1050:
 Table already exists. Skipping creation.
 e.errno == 2055:
 Conn might not be setup properly. **Ignore.
+e.errno == 1060:
+Column already exists...Skipping..
