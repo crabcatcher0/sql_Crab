@@ -29,14 +29,14 @@ class CrabMysql:
         except mysql.connector.Error as e:
             if e.errno == 1050:
                 print(f"Table '{model}' already exists. Skipping creation.")
+            if e.errno == 2055:
+                print(f"Conn might not be setup properly. **Ignore.")
+
             else:
                 print(f"Error at create: {str(e)}")
                 
         finally:
-            if cursor:
-                cursor.close()
-            if conn.is_connected():
-                conn.close()
+            conn.close()
 
 
     @classmethod
@@ -54,12 +54,17 @@ class CrabMysql:
         except mysql.connector.Error as e:
             if e.errno == 1060:
                 print(f"Column '{field}' already exists...Skipping..")
+            if e.errno == 2055:
+                print(f"Conn might not be setup properly. **Ignore.")
 
         except Exception as e:
             print(f"Error: {str(e)}.")
 
         finally:
-            conn.close()
+            if cursor:
+                cursor.close()
+            if conn.is_connected():
+                conn.close()
 
 
 
