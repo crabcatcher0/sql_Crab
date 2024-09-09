@@ -1,6 +1,6 @@
-# Custom ORM For SQLite
+# Custom ORM For SQLite And MYSQL
 
-Basic Custom Object-Relational Mapping (ORM) system for SQLite, implemented in Python.
+Basic Custom Object-Relational Mapping (ORM) system for SQLite and MYSQL implemented in Python.
 
 
 ### Features:

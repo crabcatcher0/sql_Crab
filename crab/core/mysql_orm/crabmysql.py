@@ -129,25 +129,23 @@ class CrabMysql:
 
 
     @classmethod
-    def get_object(cls, field: list = None):
+    def get_object(cls, field: list):
         conn = cls._get_connection()
         cursor = cls._get_cursor(conn)
         model = cls.__name__.lower()
         final = [] 
         try:
-            if not field:
-                query = f"SELECT * from {model};"
-            else:
-                fields_str = ", ".join(field)
-                query = f"SELECT {fields_str} from {model};"
+            fields_str = ", ".join(field)
+            query = f"SELECT {fields_str} from {model};"
 
             cursor.execute(query)
             result = cursor.fetchall()
+            
             if result:
                 final = [dict(zip(field, row)) for row in result]
                 print("Operation success.")
-
             conn.commit()
+
         except Exception as e:
             print(f"Error on get: {str(e)}.")
             final = None
