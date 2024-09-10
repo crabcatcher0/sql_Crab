@@ -154,6 +154,30 @@ class CrabMysql:
             conn.close()
         return final
     
+    @classmethod
+    def get_object_all(cls):
+        conn = cls._get_connection()
+        cursor = cls._get_cursor(conn)
+        model = cls.__name__.lower()
+        data = []
+        try:
+            cursor.execute(f"""
+                SELECT * FROM {model};
+                """)
+            result = cursor.fetchall()
+            column_names = [desc[0] for desc in cursor.description]
+            data = [dict(zip(column_names, row)) for row in result]
+            conn.commit()
+            print("Operation complete..")
+            
+        except Exception as e:
+            print(f"Error in get_obj: {str(e)}")
+    
+        finally:
+            conn.close()
+        return data
+
+    
 
     @classmethod
     def __init_subclass__(cls, **kwargs):
