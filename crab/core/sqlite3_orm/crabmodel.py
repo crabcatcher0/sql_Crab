@@ -2,8 +2,7 @@ import sqlite3
 from .settings import DATABASE_NAME
 
 
-
-class CrabModel:
+class CrabModel():
     """
     :: Base class for creating database tables with auto-incremented primary keys.
     - Automatically creates a table with a primary key column named 'id' that auto-increments.
@@ -12,10 +11,9 @@ class CrabModel:
     - Constructs the column and optional foreign key constraints.
     """
     
-    
 
     @classmethod
-    def table(cls, table_name: str, column: dict, foreign_keys:list = None):
+    def create(cls, table_name: str, column: dict, foreign_keys:list = None):
         database_name = DATABASE_NAME
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
@@ -200,7 +198,7 @@ class CrabModel:
         cls.table_name = cls.__name__.lower()
         cls.model = cls.__name__.lower()
 
-        cls.table(
+        cls.create(
             table_name = cls.table_name,
             column = cls._column
         )

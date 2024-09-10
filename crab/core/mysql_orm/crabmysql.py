@@ -139,7 +139,7 @@ class CrabMysql:
             query = f"SELECT {fields_str} from {model};"
 
             cursor.execute(query)
-            result = cursor.fetchall()
+            result = cursor.fetchone()
             
             if result:
                 final = [dict(zip(field, row)) for row in result]
@@ -169,7 +169,7 @@ class CrabMysql:
             data = [dict(zip(column_names, row)) for row in result]
             conn.commit()
             print("Operation complete..")
-            
+
         except Exception as e:
             print(f"Error in get_obj: {str(e)}")
     
