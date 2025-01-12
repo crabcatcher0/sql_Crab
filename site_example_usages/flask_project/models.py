@@ -1,4 +1,3 @@
-
 class Methods:
 
     @staticmethod
@@ -6,5 +5,4 @@ class Methods:
         return {
             "title": "Methods",
             "overview": "The ORM provides several methods for database operations:",
-
         }

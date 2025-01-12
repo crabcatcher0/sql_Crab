@@ -6,8 +6,9 @@ Database result it converted into list of dict
 
 """
 
+
 class Serializer:
-    
+
     @staticmethod
     def all_data(model: str, fields: tuple):
         """
@@ -25,13 +26,12 @@ class Serializer:
             for tup in tup_data:
                 zip_data = dict(zip(fields, tup))
                 final_result.append(zip_data)
-                
+
         except Exception as e:
             print(f"Error on serializer: {str(e)}")
 
         return final_result
-    
-    
+
     @staticmethod
     def one_data(model: str, fields: tuple, pk: int):
         """
@@ -45,23 +45,3 @@ class Serializer:
         data = GetData.get_one(model, fields, pk=pk)
         result = dict(zip(fields, data))
         return result
-        
-
-
-
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-

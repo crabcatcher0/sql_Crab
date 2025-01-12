@@ -1,6 +1,6 @@
 venv
 test.db
-
+venv/
 rough.py
 __pycache__/
 *.py[cod]

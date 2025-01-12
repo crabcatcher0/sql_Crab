@@ -1,5 +1,4 @@
-
-from core.sqlite3_orm.crabmodel import CrabModel
+from crab_sql.crabmodel import CrabModel
 from core.sqlite3_orm.datatypes import DataTypes
 
 """
@@ -8,15 +7,11 @@ from core.sqlite3_orm.datatypes import DataTypes
     
 """
 
+
 class Student(CrabModel):
     _column = {
-        'name': DataTypes.varchar(20),
-        'email': DataTypes.emailfield(),
-        'address': DataTypes.varchar(),
-        'created_at': DataTypes.datetimefield()
+        "name": DataTypes.varchar(20),
+        "email": DataTypes.emailfield(),
+        "address": DataTypes.varchar(),
+        "created_at": DataTypes.datetimefield(),
     }
-
-
-
-
-
