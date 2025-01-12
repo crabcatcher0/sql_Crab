@@ -1,1 +1,1 @@
-DATABASE_NAME = "test.db"
+DATABASE_NAME = "sql_crab.db"

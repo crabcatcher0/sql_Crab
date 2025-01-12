@@ -1,5 +1,5 @@
 import sqlite3
-from .settings import DATABASE_NAME
+from settings import DATABASE_NAME
 
 
 class CrabModel:
@@ -202,7 +202,7 @@ class CrabModel:
         cls.table_name = cls.__name__.lower()
         cls.model = cls.__name__.lower()
 
-        cls.create(table_name=cls.table_name, column=cls._column)
+        cls.create(table_name=cls.table_name, column=cls._columns)
 
 
 class ForeignKey:

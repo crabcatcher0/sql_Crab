@@ -1,5 +1,5 @@
 venv
-test.db
+sql_crab.db
 venv/
 rough.py
 __pycache__/
