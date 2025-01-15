@@ -1,4 +1,6 @@
+from typing import Any
 import sqlite3
+
 from settings import DATABASE_NAME
 
 
@@ -10,7 +12,9 @@ class CrabModel:
     """
 
     @classmethod
-    def create(cls, table_name: str, column: dict, foreign_keys: list = None):
+    def create(
+        cls, table_name: str, column: dict[str, Any], foreign_keys: list[str] = None
+    ):
         try:
             with sqlite3.connect(DATABASE_NAME) as conn:
                 cursor = conn.cursor()
@@ -74,7 +78,7 @@ class CrabModel:
             conn.commit()
 
     @classmethod
-    def insert(cls, column: dict):
+    def insert(cls, column: dict[str, Any]):
         with sqlite3.connect(DATABASE_NAME) as conn:
             cursor = conn.cursor()
 
@@ -162,21 +166,6 @@ class CrabModel:
             return result
 
     @classmethod
-    def get_data(cls, **kwargs):
-        with sqlite3.connect(DATABASE_NAME) as conn:
-            cursor = conn.cursor()
-
-            column, value = list(kwargs.items())[0]
-
-            query = f"SELECT * FROM {cls.table_name} WHERE {column} = ?"
-            cursor.execute(query, (value,))
-            row = cursor.fetchone()
-
-            if row:
-                return cls(*row)
-            return None
-
-    @classmethod
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         cls.table_name = cls.__name__.lower()
@@ -195,7 +184,7 @@ class ForeignKey:
 
     @staticmethod
     def create_foreignkey(field_name: str, model: str, on_delete: str = None):
-        constraints = []  # ON DELETE CASCADE
+        constraints: list[str] = []  # ON DELETE CASCADE
         if on_delete:
             constraints.append(f"ON DELETE {on_delete}")
 

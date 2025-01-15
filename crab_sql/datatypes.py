@@ -35,3 +35,7 @@ class DataTypes:
         return (
             f"{field_name} INTEGER, FOREIGN KEY ({field_name}) REFERENCES {model}(id)"
         )
+
+    @staticmethod
+    def file():
+        return "BLOB NOT NULL"
