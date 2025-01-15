@@ -15,7 +15,7 @@ class GetData:
         Fetches data from a given table.
 
         :latest: If True, fetches the latest rows based on a time field.
-        :by_time_field: The name of the time field to sort by (e.g., 'created').
+        :datetime_field: The name of the time field to sort by (e.g., 'created').
         :limit: The number of latest rows to fetch (default is 1).
         """
         if latest and not datetime_field:
